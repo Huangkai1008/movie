@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from apps.users import views
+import xadmin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index),
+    path('index/', views.index),
+    path('xadmin/', xadmin.site.urls),
 ]
 
