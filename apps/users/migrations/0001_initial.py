@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('add_time', models.DateTimeField(db_index=True, default=datetime.datetime.now, verbose_name='添加时间')),
-                ('movie_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.Movie', verbose_name='所属电影')),
+                ('movie_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='apps.users.Movie', verbose_name='所属电影')),
             ],
             options={
                 'verbose_name': '电影收藏',
@@ -116,26 +116,26 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='userlog',
             name='user_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.UserProfile', verbose_name='所属会员'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='apps.users.UserProfile', verbose_name='所属会员'),
         ),
         migrations.AddField(
             model_name='movielike',
             name='user_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.UserProfile', verbose_name='所属用户'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='apps.users.UserProfile', verbose_name='所属用户'),
         ),
         migrations.AddField(
             model_name='movie',
             name='tag_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.Tag', verbose_name='电影所属标签'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='apps.users.Tag', verbose_name='电影所属标签'),
         ),
         migrations.AddField(
             model_name='comment',
             name='movie_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.Movie', verbose_name='所属电影'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='apps.users.Movie', verbose_name='所属电影'),
         ),
         migrations.AddField(
             model_name='comment',
             name='user_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.UserProfile', verbose_name='所属用户'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='apps.users.UserProfile', verbose_name='所属用户'),
         ),
     ]
