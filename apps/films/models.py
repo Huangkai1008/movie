@@ -90,3 +90,4 @@ class MovieLike(models.Model):
     class Meta:
         verbose_name = "电影收藏"
         verbose_name_plural = verbose_name
+
