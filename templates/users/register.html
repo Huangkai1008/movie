@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link href="{% static 'css/my-login.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+    <body class="my-login-page">
+	<section class="h-100" style="margin-top: 5em;">
+		<div class="container h-100">
+			<div class="row justify-content-md-center h-100">
+				<div class="card-wrapper">
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="card-title">用户注册</h4>
+							<form method="post" action="{% url 'register' %}" autocomplete="off">
+								<div class="form-group {% if register_form.email.errors %} errorput{% endif %}">
+									<label for="email">邮箱</label>
+									<input id="email" type="text" class="form-control" name="email" required
+                                     value="{% ifnotequal None register_form.email.value %}
+                            {{ register_form.email.value }}{% endifnotequal %}" placeholder="请输入您的邮箱地址" />
+								</div>
+
+								<div class="form-group {% if register_form.password.errors %} errorput{% endif %}">
+									<label for="password">密码</label>
+									<input id="password" type="password" class="form-control" name="password" required data-eye
+                                    value="{% ifnotequal None register_form.password.value %}
+                                    {{ register_form.password.value }}
+                                    {% endifnotequal %}" placeholder="请输入密码">
+								</div>
+
+								<div class="form-group  {% if register_form.captcha.errors %} errorput{% endif %}">
+                                <label>验&nbsp;证&nbsp;码</label>
+                                {{ register_form.captcha }}
+                                {{ active_form.captcha }}
+                                </div>
+
+								<div class="form-group no-margin">
+									<button type="submit" class="btn btn-primary btn-block">
+										注册
+									</button>
+								</div>
+                                <div class="error btns" id="jsEmailTips">
+                                    {% for key, error in register_form.errors.items %}{{ error }}{% endfor %}
+                                    {{ msg }}</div>
+								<div class="margin-top20 text-center">
+									已经有账户了？ <a href="{% url 'login' %}">登录</a>
+								</div>
+                            {% csrf_token %}
+							</form>
+						</div>
+					</div>
+					<div class="footer">
+						Copyright &copy; 2017 &mdash; Your Company
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    {% block js %}
+        <script src="{% static 'js/my-login.js' %}"></script>
+    {% endblock %}
+</body>
+{% endblock %}

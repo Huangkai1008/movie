@@ -1,4 +1,4 @@
-from .models import UserProfile, UserLog
+from .models import UserProfile
 
 import xadmin
 from xadmin import views
@@ -25,7 +25,7 @@ class UserLogAdmin(object):
     pass
 
 
+xadmin.site.unregister(UserProfile)
 xadmin.site.register(UserProfile, UserProfileAdmin)
-xadmin.site.register(UserLog, UserLogAdmin)
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSetting)

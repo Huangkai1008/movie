@@ -30,6 +30,7 @@ SECRET_KEY = '7_3sx61ck$pjhrzks#18jq*!3h7dx73rlza&oidpd0-zk-9q8^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = []
 
 
@@ -42,12 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
-    'films',
-    'xadmin',
+    'xadmin',   # 添加xadmin
+    'users',    # 添加users应用
+    'films',    # 添加films应用
     'crispy_forms',
     'reversion',
+    'captcha',  # 添加验证码
 ]
+
+AUTH_USER_MODEL = "users.UserProfile"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,6 +142,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # 添加静态文件索引
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# 发送邮件
+EMAIL_HOST = "smtp.qq.com"  # SMTP服务器主机
+EMAIL_PORT = 25  # 端口
+EMAIL_HOST_USER = "1770360848@qq.com"  # 邮箱地址
+EMAIL_HOST_PASSWORD = 'zdpdstctknieeigf'  # 密码
+EMAIL_USE_TLS = True
+EMAIL_FROM = "1770360848@qq.com"  # 邮箱地址

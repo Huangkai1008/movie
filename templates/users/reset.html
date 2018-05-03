@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link href="{% static 'css/my-login.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+<body class="my-login-page">
+	<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-md-center align-items-center h-100">
+				<div class="card-wrapper">
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="card-title">重置密码</h4>
+							<form method="post" action="{% url 'reset_pwd' %}">
+
+								<div class="form-group">
+									<label for="new-password">新密码</label>
+									<input id="new-password" type="password" class="form-control" name="password1" required autofocus data-eye,
+                                    placeholder="请输入不小于6位的密码">
+								</div>
+                                <div class="form-group">
+									<label for="new-password2">确认密码</label>
+									<input id="new-password2" type="password" class="form-control" name="password2" required autofocus data-eye
+                                    placeholder="请输入同样的字符以确认密码">
+								</div>
+
+								<div class="form-group no-margin">
+									<button type="submit" class="btn btn-primary btn-block">
+										重置密码
+									</button>
+								</div>
+                                {% csrf_token %}
+							</form>
+						</div>
+					</div>
+					<div class="footer">
+						Copyright &copy; 2017 &mdash; Your Company
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% block js %}
+    <script src="{% static 'js/my-login.js' %}"></script>
+{% endblock js %}
+</body>
+{% endblock %}

@@ -8,7 +8,7 @@ class Tag(models.Model):
     """
     电影标签
     """
-    name = models.CharField(max_length=50, unique=True, verbose_name="标签名")
+    name = models.CharField(max_length=64, unique=True, verbose_name="标签名")
     add_time = models.DateTimeField(db_index=True, default=datetime.now, verbose_name="添加时间")
 
     class Meta:
@@ -23,26 +23,26 @@ class Movie(models.Model):
     """
     电影模型
     """
-    title = models.CharField(max_length=50, verbose_name="电影名")
-    url = models.URLField(max_length=255, unique=True, verbose_name="播放地址")
-    info = models.TextField(max_length=500, verbose_name="电影简介")
-    logo = models.ImageField(upload_to="image/%Y/%m", default="image/default.png",
-                             max_length=100, verbose_name="电影图")
-    star = models.SmallIntegerField(verbose_name="电影评星")
-    play_num = models.BigIntegerField(verbose_name="播放次数")
-    comment_num = models.BigIntegerField(verbose_name="评论次数")
-    tag_id = models.ForeignKey(Tag, verbose_name="电影所属标签", on_delete=models.CASCADE)
-    area = models.CharField(max_length=50, verbose_name="上映地区")
-    release_time = models.DateField(verbose_name="上映日期")
-    length = models.CharField(max_length=100, verbose_name="电影长度")
-    add_time = models.DateTimeField(db_index=True, default=datetime.now, verbose_name="添加时间")
+    name_cn = models.CharField(max_length=260, verbose_name="译名", blank=True, null=True)
+    name = models.CharField(max_length=128, verbose_name="片名", blank=True, null=True)
+    year = models.CharField(max_length=60, verbose_name="上映年份", blank=True, null=True)
+    country = models.CharField(max_length=64, verbose_name="产地|国家", blank=True, null=True)
+    category = models.CharField(max_length=128, verbose_name="标签", blank=True, null=True)
+    language = models.CharField(max_length=64, verbose_name="电影语言", blank=True, null=True)
+    subtitle = models.CharField(max_length=64, verbose_name="字幕语言", blank=True, null=True)
+    release_date = models.CharField(max_length=64, verbose_name="上映时间", blank=True, null=True)
+    score = models.CharField(max_length=256, verbose_name="评分", blank=True, null=True)
+    file_count = models.CharField(max_length=128, verbose_name="计数", blank=True, null=True)
+    duration = models.CharField(max_length=128, verbose_name="片长", blank=True, null=True)
+    director = models.CharField(max_length=128, verbose_name="导演", blank=True, null=True)
+    download_url = models.TextField(max_length=500, verbose_name="下载地址")
 
     class Meta:
         verbose_name = "电影模型"
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.title
+        return self.name_cn
 
 
 class Preview(models.Model):

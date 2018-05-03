@@ -1,43 +1,42 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 
-class UserProfile(models.Model):
+class UserProfile(AbstractUser):
     """
     用户信息
     """
-    name = models.CharField(max_length=50, verbose_name="昵称", default="", unique=True)
-    pwd = models.CharField(max_length=50, verbose_name="密码")
-    email = models.EmailField(max_length=50, verbose_name="邮箱")
-    phone = models.CharField(max_length=11, blank=True, null=True, verbose_name="手机号")
-    info = models.TextField(max_length=255)
-    face = models.ImageField(upload_to="image/%Y/%m", default="image/default.png", max_length=100)
-    add_time = models.DateTimeField(default=datetime.now, db_index=True, verbose_name="添加时间")
-    uuid = models.CharField(max_length=255, unique=True)
+    GENDER_CHOICES = (
+        ('male', u'男'),
+        ('female', u'女')
+    )
+
+    nick_name = models.CharField(max_length=50, verbose_name=u"昵称", default="")
+    birthday = models.DateField(verbose_name=u"生日", null=True, blank=True)
+    gender = models.CharField(
+        max_length=5,
+        verbose_name=u"性别",
+        choices=GENDER_CHOICES,
+        default="male")
+    address = models.CharField(max_length=100, verbose_name="地址", default="")
+    mobile = models.CharField(max_length=11, null=True, blank=True, verbose_name=u'手机号')
+    image = models.ImageField(
+        upload_to="image/%Y/%m",
+        default=u"image/default.png",
+        max_length=100,
+        verbose_name=u'头像'
+    )
 
     class Meta:
         verbose_name = "用户信息"
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.name
+        return self.username
 
 
-class UserLog(models.Model):
-    """
-    会员登录日志
-    """
-    user_id = models.ForeignKey(UserProfile, verbose_name="所属会员", on_delete=models.CASCADE)
-    ip = models.GenericIPAddressField(verbose_name="ip地址")
-    add_time = models.DateTimeField(default=datetime.now, db_index=True, verbose_name="添加时间")
-
-    class Meta:
-        verbose_name = "会员登录日志"
-        verbose_name_plural = verbose_name
-
-    def __str__(self):
-        return self.id
 
 
 

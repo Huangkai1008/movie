@@ -1,1 +1,1 @@
-# default_app_config = "films.apps.FilmsConfig"
+default_app_config = "films.apps.FilmsConfig"

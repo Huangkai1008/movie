@@ -1,114 +1,115 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
-    <title>微电影视频网站</title>
-    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
-    <link rel="stylesheet" href="{% static "css/bootstrap-movie.css"%}">
-    <link rel="stylesheet" href="{% static "css/animate.css" %}">
-    <style>
-        .navbar-brand>img {
-            display: inline;
-        }
-
-    </style>
-    <style>
-        .media{
-            padding:3px;
-            border:1px solid #ccc
-        }
-
-    </style>
-</head>
-
-<body>
-<!--导航-->
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <!--小屏幕导航按钮和logo-->
-        <div class="navbar-header">
-            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-{#            <a href="index.html" class="navbar-brand" style="width:250px;">#}
-{#                <img src="{{ url_for('static', filename='base/images/logo.png')}}" style="height:30px;">&nbsp;微电影#}
-{#            </a>#}
-        </div>
-        <!--小屏幕导航按钮和logo-->
-        <!--导航-->
-        <div class="navbar-collapse collapse">
-            <form class="navbar-form navbar-left" role="search" style="margin-top:18px;">
-                <div class="form-group input-group">
-                    <input type="text" class="form-control" placeholder="请输入电影名！">
-                    <span class="input-group-btn">
-                        <a class="btn btn-default" href="search.html"><span class="glyphicon glyphicon-search"></span>&nbsp;搜索</a>
-                    </span>
-                </div>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="curlink" href="index.html"><span class="glyphicon glyphicon-film"></span>&nbsp;电影</a>
-                </li>
-                <li>
-                    <a class="curlink" href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;登录</a>
-                </li>
-                <li>
-                    <a class="curlink" href="#"><span class="glyphicon glyphicon-plus"></span>&nbsp;注册</a>
-                </li>
-                <li>
-                    <a class="curlink" href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;退出</a>
-                </li>
-                <li>
-                    <a class="curlink" href="user.html"><span class="glyphicon glyphicon-user"></span>&nbsp;会员</a>
-                </li>
-            </ul>
-        </div>
-        <!--导航-->
-
-    </div>
-</nav>
-<!--导航-->
-<!--内容-->
-<div class="container" style="margin-top:76px">
-    {% block content %}
+<title>微电影</title>
+<link href="{% static 'bootstrap3/css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
+<link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--webfont-->
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    {% block css %}
     {% endblock %}
-</div>
-<!--内容-->
-<!--底部-->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>
-                    ©&nbsp;2017&nbsp;movie.imooc.com&nbsp;京ICP备 13046642号-2
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
-<!--底部-->
-<script src="{% static "js/jquery-3.2.1.min.js" %}"></script>
-<script src="{% static "js/bootstrap.js"%}"></script>
-<script src="//cdn.bootcss.com/holder/2.9.4/holder.min.js"></script>
+<script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+<script src="{% static 'js/jquery.easydropdown.js' %}"></script>
+<!--Animation-->
+<script src="{% static 'js/wow.min.js' %}"></script>
+<link href="{% static 'css/animate.min.css' %}" rel='stylesheet' type='text/css' />
 <script>
-    $(function() {
-        new WOW().init();
-    })
-
+	new WOW().init();
 </script>
-<script>
-    $(document).ready(function() {
-        $("img.lazy").lazyload({
-            effect: "fadeIn"
-        });
-    });
+</head>
+<body>
+<div class="header">
+		   <div class="col-sm-8 header-left">
+					 <div class="logo">
+						<a href="index.html"><img src="{% static 'images/logo1.png' %}" alt=""/></a>
+					 </div>
+					 <div class="menu">
+						  <a class="toggleMenu" href="#"><img src="{% static 'images/nav.png' %}" alt="" /></a>
+						    <ul class="nav" id="nav">
+						    	<li class="active"><a href="index.html">首页</a></li>
+						    	<li><a href="rooms.html">Rooms</a></li>
+						    	<li><a href="news.html">News</a></li>
+						    	<li><a href="gallery.html">Gallery</a></li>
+						    	<li><a href="404.html">Blog</a></li>
+								<div class="clearfix"></div>
+							</ul>
+							<script type="text/javascript" src="{% static 'js/responsive-nav.js' %}"></script>
+				    </div>
+				     <!-- start search-->
+				      <div class="search-box">
+							<div id="sb-search" class="sb-search">
+								<form>
+									<input class="sb-search-input" placeholder="Enter your search term..." type="search" name="search" id="search">
+									<input class="sb-search-submit" type="submit" value="">
+									<span class="sb-icon-search"> </span>
+								</form>
+							</div>
+						</div>
+						<!----search-scripts---->
+						<script src="{% static 'js/classie.js' %}"></script>
+						<script src="{% static 'js/uisearch.js'%}"></script>
+						<script>
+							new UISearch( document.getElementById( 'sb-search' ) );
+						</script>
+						<!----//search-scripts---->
+	    		    <div class="clearfix"></div>
+	    	    </div>
+	            <div class="col-sm-4 header_right">
+	    		      <div id="loginContainer"><a href="{% url 'login' %}" id="loginButton"><img src="{% static 'images/login.png' %}"><span>登录</span></a>
+			             </div>
+		                 <div class="clearfix"></div>
+	                 </div>
+	                <div class="clearfix"></div>
+   </div>
+    {% block content %}
 
-</script>
+    {% endblock %}
+   <div class="footer">
+   	<div class="container">
+	  <div class="footer_grids">
+	     <div class="footer-grid">
+			<h4>Ipsum Quis</h4>
+			<ul class="list1">
+				<li><a href="contact.html">Contact</a></li>
+				<li><a href="#">Mirum est</a></li>
+				<li><a href="#">Placerat facer</a></li>
+				<li><a href="#">Claritatem</a></li>
+				<li><a href="#">Sollemnes </a></li>
+			</ul>
+		  </div>
+		  <div class="footer-grid">
+			<h4>Quis Ipsum</h4>
+			<ul class="list1">
+				<li><a href="#">Placerat facer</a></li>
+				<li><a href="#">Claritatem</a></li>
+				<li><a href="#">Sollemnes </a></li>
+				<li><a href="#">Claritas</a></li>
+				<li><a href="#">Mirum est</a></li>
+			</ul>
+		  </div>
+		  <div class="footer-grid last_grid">
+			<h4>Follow Us</h4>
+			<ul class="footer_social wow fadeInLeft" data-wow-delay="0.4s">
+			  <li><a href=""> <i class="fb"> </i> </a></li>
+			  <li><a href=""><i class="tw"> </i> </a></li>
+			  <li><a href=""><i class="google"> </i> </a></li>
+			  <li><a href=""><i class="u_tube"> </i> </a></li>
+		 	</ul>
+		 	<div class="copy wow fadeInRight" data-wow-delay="0.4s">
+              <p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+	        </div>
+		  </div>
+		  <div class="clearfix"> </div>
+	   </div>
+      </div>
+   </div>
+{% block js %}
+{% endblock %}
 </body>
 </html>
