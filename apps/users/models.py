@@ -37,6 +37,23 @@ class UserProfile(AbstractUser):
         return self.username
 
 
+class EmailVerifyRecord(models.Model):
+    """
+    邮箱验证码
+    """
+    SEND_CHOICES = (
+        ('register', u'注册'),
+        ('forget', u'找回密码'),
+    )
+    code = models.CharField(max_length=20, verbose_name=u"验证码")
+    email = models.EmailField(max_length=50, verbose_name=u"邮箱")
+    send_type = models.CharField(choices=SEND_CHOICES, max_length=10, verbose_name=u"验证类型")
+    send_time = models.DateTimeField(default=datetime.now, verbose_name=u"发送时间")
+
+    class Meta:
+        verbose_name = "邮箱验证码"
+        verbose_name_plural = verbose_name
+
 
 
 

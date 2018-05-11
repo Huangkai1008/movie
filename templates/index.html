@@ -1,34 +1,151 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+{% endblock css %}
 {% block content %}
-   <div id="myCarousel" class="carousel slide" data-toggle="carousel">
-        <!--指示符-->
-       <ul class="carousel-indicators">
-           <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-           <li data-target="#myCarousel" data-slide-to="1"></li>
-           <li data-target="#myCarousel" data-slide-to="2"></li>
-       </ul>
-        <!--轮播图-->
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="#">
+    <div class="container" style="margin-top: 2em;">
+        <!--轮播图开始-->
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                <li data-target="#carousel-example-generic" data-slide-to="3" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="4" class=""></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item">
+                    <a target="_blank" href="http://www.id97.com/movie/604390.html"><img width="100%"
+                                                                                         src="{% static 'images/banner/黑豹.jpg' %}"
+                                                                                         alt="黑豹"></a>
+                    <div class="carousel-caption">
+                        黑豹
+                    </div>
+                </div>
+                <div class="item">
+                    <a target="_blank" href="http://www.id97.com/movie/625341.html"><img width="100%"
+                                                                                         src="{% static 'images/banner/红海.jpg' %}"
+                                                                                         alt="红海行动"></a>
+                    <div class="carousel-caption">
+                        红海行动
+                    </div>
+                </div>
+                <div class="item">
+                    <a target="_blank" href="http://www.id97.com/movie/622090.html"><img width="100%"
+                                                                                         src="{% static 'images/banner/唐人街探案2.jpg' %}"
+                                                                                         alt="唐人街探案2"></a>
+                    <div class="carousel-caption">
+                        唐人街探案2
+                    </div>
+                </div>
+                <div class="item active">
+                    <a target="_blank" href="http://www.id97.com/movie/621026.html"><img width="100%"
+                                                                                         src="{% static 'images/banner/捉妖记2.jpg' %}"
+                                                                                         alt="捉妖记2"></a>
+                    <div class="carousel-caption">
+                        捉妖记2
+                    </div>
+                </div>
+                <div class="item">
+                    <a target="_blank" href="http://www.id97.com/movie/621033.html"><img width="100%"
+                                                                                         src="{% static 'images/banner/头号玩家.jpg' %}"
+                                                                                         alt="头号玩家"></a>
+                    <div class="carousel-caption">
+                        头号玩家
+                    </div>
+                </div>
             </div>
-            <div class="carousel-item">
-                <img src="#">
-            </div>
-            <div class="carousel-item">
-                <img src="#">
-            </div>
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">上一张</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">下一张</span>
+            </a>
         </div>
-        <!--左右切换按钮-->
-        <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </a>
-        <a class="carousel-control-next" href="#myCarousel" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </a>
-   </div>
+        <!--轮播图结束-->
+        <div class="row">
+
+            <div class="col-xs-12 index-box">
+                <h2 class="index-title">热门电影
+                </h2>
+                <div style="margin:0 -10px;">
+                    {% for hot_movie in hot_movies %}
+                    <div class="col-xs-1-5 movie-item">
+                        <div class="movie-item-in">
+                            <a style="position:relative;display:block;" title="{{ hot_movie.name }}" target="_blank"
+                               href="http://www.id97.com/movie/625341.html">
+                                <img class="lazy"
+                                     data-original="media/{{ MEDIA_URL }}{{ hot_movie.image }}"
+                                     alt="{{ hot_movie.name }}" title="{{ hot_movie.name }}"
+                                     src="media/{{ MEDIA_URL }}{{ hot_movie.image }}">
+                                <span class="qtag hdtag">热门</span>
+                                <div class="item-hover"></div>
+                            </a>
+                            <div class="meta">
+                                <h1><a href="http://www.id97.com/movie/625341.html" target="_blank" title="{{ hot_movie.name }}">{{ hot_movie.name }}</a><em>
+                                    - {{ hot_movie.score_douban }}分</em></h1>
+                                <div class="otherinfo">类型：
+                                        {% for tag in hot_movie.tags.all %}
+                                            <a target="_blank"
+                                                            href="http://www.id97.com/movie/?tag=%E5%8A%A8%E4%BD%9C"}
+                                                            class="movietype">{{ tag.name }}</a>
+                                            {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-xs-12">
+                <div style="background:#FFF;padding:10px 0;font-size:0;">
+                    <div style="width:960px;margin:auto;">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 index-box">
+                <h2 class="index-title">最新电影
+                </h2>
+                <div style="margin:0 -10px;">
+                    {% for new_movie in new_movies %}
+                    <div class="col-xs-1-5 movie-item">
+                        <div class="movie-item-in">
+                            <a style="position:relative;display:block;" title="{{ new_movie.name }}" target="_blank"
+                               href="http://www.id97.com/movie/630802.html">
+                                <img class="lazy"
+                                     data-original="media/{{ MEDIA_URL }}{{ new_movie.image }}"
+                                     alt="{{ new_movie.name }}" title="{{ new_movie.name }}"
+                                     src="media/{{ MEDIA_URL }}{{ new_movie.image }}">
+                                <span class="qtag hdtag">最新</span>
+                                <div class="item-hover"></div>
+                            </a>
+                            <div class="meta">
+                                <h1><a href="http://www.id97.com/movie/630802.html" target="_blank"
+                                       title="{{ new_movie.name }}">{{ new_movie.name }}</a><em> - {{ new_movie.score_douban }}分</em></h1>
+                                <div class="otherinfo">类型：
+                                    {% for tag in new_movie.tags.all %}
+                                    <a target="_blank"
+                                                             href="http://www.id97.com/movie/?tag=%E5%96%9C%E5%89%A7"
+                                                             class="movietype">{{ tag.name }}</a>
+                                        {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                {% endfor %}
+                    </div>
+                </div>
+            </div> <!-- action movie end -->
+
+        </div>
+    </div>
 {% endblock content %}
+{% block js %}
+    <script src="{% static 'bootstrap3/js/bootstrap.min.js'%}"></script>
+{% endblock js %}

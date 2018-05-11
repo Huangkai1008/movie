@@ -42,7 +42,8 @@
 								</div>
                                 <div class="error btns" id="jsEmailTips">
                                     {% for key, error in register_form.errors.items %}{{ error }}{% endfor %}
-                                    {{ msg }}</div>
+                                    {{ msg }}
+                                </div>
 								<div class="margin-top20 text-center">
 									已经有账户了？ <a href="{% url 'login' %}">登录</a>
 								</div>
@@ -57,8 +58,8 @@
 			</div>
 		</div>
 	</section>
-    {% block js %}
-        <script src="{% static 'js/my-login.js' %}"></script>
-    {% endblock %}
 </body>
 {% endblock %}
+ {% block js %}
+        <script src="{% static 'js/my-login.js' %}"></script>
+    {% endblock %}

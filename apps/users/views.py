@@ -8,10 +8,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.views.generic.base import View
 from django.contrib.auth.backends import ModelBackend
-from .models import UserProfile
+from .models import UserProfile, EmailVerifyRecord
 import json
 from django.db.models import Q  # 并集
 from .forms import LoginForm, RegisterForm, ResetPwdForm, UserInfoForm
+from apps.utils.email_send import send_register_email
+
+
 # Create your views here.
 
 
@@ -19,6 +22,7 @@ class CustomBackend(ModelBackend):
     """
     重写ModelBackend下的authenticate方法实现邮箱和用户名均可以登录
     """
+
     def authenticate(self, request, username=None, password=None, **kwargs):
         try:
             user = UserProfile.objects.get(Q(username=username) | Q(email=username))
@@ -72,10 +76,33 @@ class LoginView(View):
                     "login_form": login_form})
 
 
+class ActiveUserView(View):
+    """
+    激活注册用户
+    """
+
+    def get(self, request, active_code):
+        #   查询邮箱验证记录是否存在
+        all_record = EmailVerifyRecord.objects.filter(code=active_code)
+
+        if all_record:
+            for record in all_record:
+                # 获取对应邮箱
+                email = record.email
+                user = UserProfile.objects.get(email=email)
+                user.is_active = True
+
+                user.save()
+        else:
+            return render(request, 'users/active_fail.html')
+        return render(request, 'users/login.html')
+
+
 class RegisterView(View):
     """
     注册视图
     """
+
     def get(self, request):
         register_form = RegisterForm()
         return render(request, "users/register.html", {'register_form': register_form})
@@ -94,11 +121,12 @@ class RegisterView(View):
             user_profile = UserProfile()
             user_profile.username = user_name
             user_profile.email = user_name
-            # 注册后激活用户
-            user_profile.is_active = True
+            # 默认注册后用户是未激活的
+            user_profile.is_active = False
             # hash算法加密密码
             user_profile.password = make_password(pass_word)
             user_profile.save()
+            send_register_email(user_name, 'register')
             return render(request, 'users/login.html')
         else:
             return render(request, 'users/register.html', {'register_form': register_form})
@@ -108,6 +136,7 @@ class ResetPwdView(View):
     """
     重设密码视图
     """
+
     def post(self, request):
         reset_form = ResetPwdForm(request.POST)
         if reset_form.is_valid():
@@ -150,3 +179,6 @@ class UserInfoView(LoginRequiredMixin, View):
                 json.dumps(user_info_form.errors),
                 content_type='application/json'
             )
+
+
+

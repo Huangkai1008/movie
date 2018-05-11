@@ -13,17 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from django.views.generic import TemplateView
-from users.views import LoginView, RegisterView, ResetPwdView
-from django.contrib.auth import views as auth_views
+
+from django.urls import path, include, re_path
+from django.views.static import serve
+from django.conf.urls.static import static
+from django.conf import settings
+from movie.settings import MEDIA_ROOT
+from users.views import LoginView, RegisterView, ResetPwdView, ActiveUserView
+from films.views import IndexView, MovieListView
 import xadmin
 
 urlpatterns = [
     # path('admin/', admin.site.urls),  #  注释掉原本的admin url
     # 添加xadmin的url
     path('xadmin/', xadmin.site.urls),
+    # 处理图片显示的url, 使用django自带的serve，传入media_root的参数
+    re_path(r'^media/(?P<path>.*)', serve, {'document_root': MEDIA_ROOT}),
     # 添加验证码url
     path('captcha', include('captcha.urls')),
     # 登录注册url
@@ -33,6 +38,12 @@ urlpatterns = [
     path('reset_pwd', ResetPwdView.as_view(), name='reset_pwd'),
     # path('users/', include('users.urls')),
     # 主页url
-    path('', TemplateView.as_view(template_name='index.html'), name='index'),
-]
+    # path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    path('', IndexView.as_view(), name='index'),
+    # 电影列表视图
+    path('movie_list', MovieListView.as_view(), name='movie_list'),
+    # 激活账户验证码url
+    re_path('active/(?P<active_code>.*)/', ActiveUserView.as_view(), name='user_active'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   # 配置xadmin的图像文件加载路径
+
 

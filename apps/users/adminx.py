@@ -1,4 +1,4 @@
-from .models import UserProfile
+from .models import UserProfile, EmailVerifyRecord
 
 import xadmin
 from xadmin import views
@@ -21,11 +21,14 @@ class UserProfileAdmin(object):
     pass
 
 
-class UserLogAdmin(object):
-    pass
+class EmailVerityRecordAdmin(object):
+    list_display = ['code', 'email', 'send_type', 'send_time']
+    list_filter = ['code', 'email', 'send_type', 'send_time']
+    search_fields = ['code', 'email', 'send_type']
 
 
 xadmin.site.unregister(UserProfile)
 xadmin.site.register(UserProfile, UserProfileAdmin)
+xadmin.site.register(EmailVerifyRecord, EmailVerityRecordAdmin)
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSetting)

@@ -1,8 +1,11 @@
-{% load static %}
+{% load staticfiles %}
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>微电影</title>
+<title>
+{% block title %}
+{% endblock title %}
+</title>
 <link href="{% static 'bootstrap3/css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
 <link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
 <!-- Custom Theme files -->
@@ -32,11 +35,11 @@
 					 <div class="menu">
 						  <a class="toggleMenu" href="#"><img src="{% static 'images/nav.png' %}" alt="" /></a>
 						    <ul class="nav" id="nav">
-						    	<li class="active"><a href="index.html">首页</a></li>
-						    	<li><a href="rooms.html">Rooms</a></li>
+						    	<li class="active"><a href="{% url 'index' %}">首页</a></li>
+						    	<li><a href="{% url 'movie_list' %}">电影</a></li>
 						    	<li><a href="news.html">News</a></li>
 						    	<li><a href="gallery.html">Gallery</a></li>
-						    	<li><a href="404.html">Blog</a></li>
+						    	<li><a href="#">Blog</a></li>
 								<div class="clearfix"></div>
 							</ul>
 							<script type="text/javascript" src="{% static 'js/responsive-nav.js' %}"></script>
@@ -45,7 +48,7 @@
 				      <div class="search-box">
 							<div id="sb-search" class="sb-search">
 								<form>
-									<input class="sb-search-input" placeholder="Enter your search term..." type="search" name="search" id="search">
+									<input class="sb-search-input" placeholder="搜索你想要的电影" type="search" name="search" id="search">
 									<input class="sb-search-submit" type="submit" value="">
 									<span class="sb-icon-search"> </span>
 								</form>

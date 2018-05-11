@@ -59,10 +59,10 @@
 			</div>
 		</div>
 	</section>
-     {% block js %}
-        <script src="{% static 'js/my-login.js' %}"></script>
-        {% endblock %}
 </body>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'js/my-login.js' %}"></script>
 {% endblock %}
 
 

@@ -1,4 +1,4 @@
-from .models import Tag, Movie, Preview, MovieLike
+from .models import Tag, Movie, MovieLike, Region, Language
 
 import xadmin
 
@@ -8,21 +8,27 @@ class TagAdmin(object):
 
 
 class MovieAdmin(object):
-    list_display = ('name_cn', 'name', 'year', 'country', 'category', 'language', 'subtitle',
-                    'release_date', 'score', 'duration', 'director', 'download_url')
-    list_filter = ('year', 'country', 'category', 'language', 'score', 'director')
-    search_fields = ('name_cn', 'name', 'country', 'category', 'director')
-
-
-class PreviewAdmin(object):
-    pass
+    list_display = ['name', 'year', 'name_other', 'director', 'actor', 'tags', 'image', 'languages',
+                    'regions', 'intro', 'release_date', 'duration', 'score_douban', 'score_imdb', 'add_time']
+    list_filter = ['year', 'director', 'tags', 'languages', 'regions', 'score_douban', 'score_imdb']
+    search_fields = ['name', 'name_other', 'director', 'actor', 'tags__name', 'image', 'languages__name',
+                     'regions__name', 'duration', 'intro']
 
 
 class MovieLikeAdmin(object):
     pass
 
 
+class RegionAdmin(object):
+    pass
+
+
+class LanguageAdmin(object):
+    pass
+
+
 xadmin.site.register(Movie, MovieAdmin)
 xadmin.site.register(Tag, TagAdmin)
-xadmin.site.register(Preview, PreviewAdmin)
 xadmin.site.register(MovieLike, MovieLikeAdmin)
+xadmin.site.register(Region, RegionAdmin)
+xadmin.site.register(Language, LanguageAdmin)

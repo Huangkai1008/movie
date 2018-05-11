@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.template.context_processors',  # 添加media处理器
     'xadmin',   # 添加xadmin
     'users',    # 添加users应用
     'films',    # 添加films应用
@@ -133,7 +134,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -144,13 +145,17 @@ STATIC_URL = '/static/'
 # 添加静态文件索引
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
+# 设置上传文件路径
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Email配置
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # 发送邮件
 EMAIL_HOST = "smtp.qq.com"  # SMTP服务器主机
 EMAIL_PORT = 25  # 端口
 EMAIL_HOST_USER = "1770360848@qq.com"  # 邮箱地址
-EMAIL_HOST_PASSWORD = 'zdpdstctknieeigf'  # 密码
+EMAIL_HOST_PASSWORD = 'yvjnbtgrphseciej'  # 密码
 EMAIL_USE_TLS = True
 EMAIL_FROM = "1770360848@qq.com"  # 邮箱地址

@@ -1,6 +1,9 @@
 from django.urls import path
 from django.contrib.auth.views import login, logout, logout_then_login
 from django.contrib.auth.decorators import login_required
+
+app_name = 'users'
+
 urlpatterns = [
     # 登录登出
     # path('login/', login, name='login'),  # 用户登录视图
