@@ -17,10 +17,11 @@ Including another URLconf
 from django.urls import path, include, re_path
 from django.views.static import serve
 from django.conf.urls.static import static
+from django.views.generic.base import TemplateView
 from django.conf import settings
 from movie.settings import MEDIA_ROOT
 from users.views import LoginView, RegisterView, ResetPwdView, ActiveUserView
-from films.views import IndexView, MovieListView
+from films.views import IndexView, MovieListView, MovieDetailView
 import xadmin
 
 urlpatterns = [
@@ -35,13 +36,17 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('register/', RegisterView.as_view(), name='register'),
     # 重设密码url
-    path('reset_pwd', ResetPwdView.as_view(), name='reset_pwd'),
+    path('reset_pwd/', ResetPwdView.as_view(), name='reset_pwd'),
     # path('users/', include('users.urls')),
+    # 添加详情
+    # path('detail/', TemplateView.as_view(template_name='films/movie_detail.html'), name='detail'),
+    re_path('movie_list/(?P<movie_id>\d+)/', MovieDetailView.as_view(), name='movie_detail'),
     # 主页url
     # path('', TemplateView.as_view(template_name='index.html'), name='index'),
     path('', IndexView.as_view(), name='index'),
     # 电影列表视图
     path('movie_list', MovieListView.as_view(), name='movie_list'),
+    # path('films/', include('films.urls', namespace='films')),
     # 激活账户验证码url
     re_path('active/(?P<active_code>.*)/', ActiveUserView.as_view(), name='user_active'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   # 配置xadmin的图像文件加载路径

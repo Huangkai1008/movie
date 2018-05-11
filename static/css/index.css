@@ -566,7 +566,7 @@ em {font-size:12px; font-style:normal; color:#8c8c8c;}
 }
 .tags .tag.active{
     color: #FFF;
-    background: rgb(95,170,254);
+    background: rgb(241, 158, 31);
 }
 .tags .tag.active:hover{
     text-decoration: none;
