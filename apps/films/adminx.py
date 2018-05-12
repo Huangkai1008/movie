@@ -1,4 +1,4 @@
-from .models import Tag, Movie, MovieLike, Region, Language
+from .models import Tag, Movie, Region, Language
 
 import xadmin
 
@@ -29,6 +29,5 @@ class LanguageAdmin(object):
 
 xadmin.site.register(Movie, MovieAdmin)
 xadmin.site.register(Tag, TagAdmin)
-xadmin.site.register(MovieLike, MovieLikeAdmin)
 xadmin.site.register(Region, RegionAdmin)
 xadmin.site.register(Language, LanguageAdmin)

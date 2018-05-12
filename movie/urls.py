@@ -17,12 +17,10 @@ Including another URLconf
 from django.urls import path, include, re_path
 from django.views.static import serve
 from django.conf.urls.static import static
-from django.views.generic.base import TemplateView
 from django.conf import settings
 from movie.settings import MEDIA_ROOT
 from users.views import LoginView, RegisterView, ResetPwdView, ActiveUserView
 from films.views import IndexView, MovieListView, MovieDetailView
-from haystack.views import SearchView
 import xadmin
 
 urlpatterns = [

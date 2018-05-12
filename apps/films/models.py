@@ -99,15 +99,3 @@ class Comment(models.Model):
         return self.id
 
 
-class MovieLike(models.Model):
-    """
-    电影收藏
-    """
-    movie_id = models.ForeignKey(Movie, verbose_name="所属电影", on_delete=models.CASCADE)
-    user_id = models.ForeignKey(UserProfile, verbose_name="所属用户", on_delete=models.CASCADE)
-    add_time = models.DateTimeField(db_index=True, verbose_name="添加时间", default=datetime.now)
-
-    class Meta:
-        verbose_name = "电影收藏"
-        verbose_name_plural = verbose_name
-

@@ -13,7 +13,7 @@
             <ol class="breadcrumb" style="padding:10px 15px;">
                 <li><a href="{% url 'index' %}">首页</a></li>
                 <li><a target="_blank" href="#">资源搜索</a></li>
-                <li class="active">{{ q.name }}</li>
+                <li class="active">{{ query }}</li>
             </ol>
             {% for result in page.object_list %}
                 <div class="result-item">

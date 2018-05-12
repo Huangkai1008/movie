@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic.base import View
 from pure_pagination import PageNotAnInteger, Paginator, EmptyPage
@@ -37,7 +38,17 @@ class MovieListView(View):
                 all_movies = all_movies.filter(year < 2014)
             else:
                 all_movies = all_movies.filter(year=year)
-        region = request.GET.get('region', '')
+        region_id = request.GET.get('region', '')
+        if region_id:
+            all_movies = all_movies.filter(regions__pk=int(region_id))
+
+        score = request.GET.get('score', '')
+        if score:
+            all_movies = all_movies.filter(score_douban__gte=float(score), score_douban__lte=float(float(score) + 1))
+
+        tag_id = request.GET.get('tag', '')
+        if tag_id:
+            all_movies = all_movies.filter(tags__pk=int(tag_id))
         # 对电影总数进行分页, 尝试获取前台get过来的page参数,如果参数不合法那么返回默认的第一页
         try:
             page = request.GET.get('page', 1)
@@ -49,7 +60,10 @@ class MovieListView(View):
                                                          'movie_counts': movie_counts,
                                                          'regions': regions,
                                                          'tags': tags,
-                                                         'year': year})
+                                                         'year': year,
+                                                         'region_id': region_id,
+                                                         'score': score,
+                                                         'tag_id': tag_id})
 
 
 class MovieDetailView(View):

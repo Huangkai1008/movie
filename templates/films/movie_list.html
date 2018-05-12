@@ -17,41 +17,40 @@
 						<tr>
 							<td class="tag-span2">年份：</td>
 							<td class="tags">
-								<a class="tag {% ifequal year '' %} active {% endifequal %}" href="?year=" data-value="全部">全部</a>
-								<a class="tag {% ifequal 2018|stringformat:'i' year %} active {% endifequal %}" href="?year=2018" data-value="2018">2018</a>
-                                <a class="tag {% ifequal 2017|stringformat:'i' year %} active {% endifequal %}" href="?year=2017" data-value="2017">2017</a>
-                                <a class="tag {% ifequal 2016|stringformat:'i' year %} active {% endifequal %}" href="?year=2016" data-value="2016">2016</a>
-                                <a class="tag {% ifequal 2015|stringformat:'i' year %} active {% endifequal %}" href="?year=2015" data-value="2015">2015</a>
-                                <a class="tag {% ifequal 2014|stringformat:'i' year %} active {% endifequal %}" href="?year=2014" data-value="2014">2014</a>
-                                <a class="tag {% if year|to_inter < 2014 %} active {% endif %}" href="?year<2014" data-value="更早">更早</a>
+								<a class="tag {% ifequal year '' %} active {% endifequal %}" href="?region={{ region_id }}&score={{ score }}&tag={{ tag_id }}" data-value="全部">全部</a>
+								<a class="tag {% ifequal 2018|stringformat:'i' year %} active {% endifequal %}" href="?year=2018&region={{ region_id }}&score={{ score }}&tag={{ tag_id }}" data-value="2018">2018</a>
+                                <a class="tag {% ifequal 2017|stringformat:'i' year %} active {% endifequal %}" href="?year=2017&region={{ region_id }}&score={{ score }}&tag={{ tag_id }}" data-value="2017">2017</a>
+                                <a class="tag {% ifequal 2016|stringformat:'i' year %} active {% endifequal %}" href="?year=2016&region={{ region_id }}&score={{ score }}&tag={{ tag_id }}" data-value="2016">2016</a>
+                                <a class="tag {% ifequal 2015|stringformat:'i' year %} active {% endifequal %}" href="?year=2015&region={{ region_id }}&score={{ score }}&tag={{ tag_id }}" data-value="2015">2015</a>
+                                <a class="tag {% ifequal 2014|stringformat:'i' year %} active {% endifequal %}" href="?year=2014&region={{ region_id }}&score={{ score }}&tag={{ tag_id }}" data-value="2014">2014</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="tag-span2">评分排序：</td>
 							<td class="tags">
-								<a class="tag active" href="/movie/" data-value="全部">全部</a>
-								<a class="tag" href="/movie/?rating=10" data-value="9 ~ 10分">9 ~ 10分</a>
-								<a class="tag" href="/movie/?rating=9" data-value="8 ~ 9分">8 ~ 9分</a>
-								<a class="tag" href="/movie/?rating=8" data-value="7 ~ 8分">7 ~ 8分</a>
-								<a class="tag" href="/movie/?rating=7" data-value="6 ~ 7分">6 ~ 7分</a>
-								<a class="tag" href="/movie/?rating=6" data-value="5 ~ 6分">5 ~ 6分</a>
+								<a class="tag {% ifequal score '' %} active {% endifequal %}" href="?year={{ year }}&region={{ region_id }}&tag={{ tag_id }}" data-value="全部">全部</a>
+								<a class="tag {% ifequal 9|stringformat:'i' score %}active{% endifequal %}" href="?score=9&year={{ year }}&region={{ region_id }}&tag={{ tag_id }}" data-value="9 ~ 10分">9 ~ 10分</a>
+								<a class="tag {% ifequal 8|stringformat:'i' score %}active{% endifequal %}" href="?score=8&year={{ year }}&region={{ region_id }}&tag={{ tag_id }}" data-value="8 ~ 9分">8 ~ 9分</a>
+								<a class="tag {% ifequal 7|stringformat:'i' score %}active{% endifequal %}" href="?score=7&year={{ year }}&region={{ region_id }}&tag={{ tag_id }}" data-value="7 ~ 8分">7 ~ 8分</a>
+								<a class="tag {% ifequal 6|stringformat:'i' score %}active{% endifequal %}" href="?score=6&year={{ year }}&region={{ region_id }}&tag={{ tag_id }}" data-value="6 ~ 7分">6 ~ 7分</a>
+								<a class="tag {% ifequal 5|stringformat:'i' score %}active{% endifequal %}" href="?score=5&year={{ year }}&region={{ region_id }}&tag={{ tag_id }}" data-value="5 ~ 6分">5 ~ 6分</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="tag-span2">国家地区：</td>
 							<td class="tags">
-								<a class="tag active" href="/movie/" data-value="全部">全部</a>
+								<a class="tag {% ifequal region_id '' %}active {% endifequal %}" href="?year={{ year }}&score={{ score }}&tag={{ tag_id }}" data-value="全部">全部</a>
                                 {%  for region in regions %}
-								<a class="tag" href="/movie/?country=中国" data-value="{{ region.name }}">{{ region.name }}</a>
+								<a class="tag {% ifequal region.id|stringformat:'i' region_id %} active {% endifequal %}" href="?region={{ region.id }}&year={{ year }}&tag={{ tag_id }}&score={{ score }}" data-value="{{ region.name }}">{{ region.name }}</a>
                                 {% endfor %}
 							</td>
 						</tr>
 						<tr style="border-bottom:1px solid #DDD;">
 							<td class="tag-span2">影视类型：</td>
 							<td class="tags">
-								<a class="tag active" href="/movie/" data-value="全部">全部</a>
+								<a class="tag {% ifequal tag_id '' %}active {% endifequal %}" href="?year={{ year }}&score={{ score }}&region={{ region_id }}" data-value="全部">全部</a>
                                 {%  for tag in tags %}
-								<a class="tag" href="/movie/?tag=传记" data-value="{{ tag.name }}">{{ tag.name }}</a>
+								<a class="tag {% ifequal tag.id|stringformat:'i' tag_id %} active {% endifequal %}" href="?tag={{ tag.id }}&year={{ year }}&score={{ score }}&region={{ region_id }}" data-value="{{ tag.name }}">{{ tag.name }}</a>
                                 {% endfor %}
 							</td>
 						</tr>
