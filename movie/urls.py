@@ -22,6 +22,7 @@ from django.conf import settings
 from movie.settings import MEDIA_ROOT
 from users.views import LoginView, RegisterView, ResetPwdView, ActiveUserView
 from films.views import IndexView, MovieListView, MovieDetailView
+from haystack.views import SearchView
 import xadmin
 
 urlpatterns = [
@@ -45,10 +46,12 @@ urlpatterns = [
     # path('', TemplateView.as_view(template_name='index.html'), name='index'),
     path('', IndexView.as_view(), name='index'),
     # 电影列表视图
-    path('movie_list', MovieListView.as_view(), name='movie_list'),
+    path('movie_list/', MovieListView.as_view(), name='movie_list'),
     # path('films/', include('films.urls', namespace='films')),
     # 激活账户验证码url
     re_path('active/(?P<active_code>.*)/', ActiveUserView.as_view(), name='user_active'),
+    # haystack url
+    path('search/', include('haystack.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   # 配置xadmin的图像文件加载路径
 
 

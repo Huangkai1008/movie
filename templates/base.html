@@ -11,6 +11,8 @@
 <!-- Custom Theme files -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--添加网站icon-->
+<link rel="shortcut icon" href="{% static 'images/shorticon/movieicon.png' %}">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--webfont-->
 <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -47,10 +49,10 @@
 				     <!-- start search-->
 				      <div class="search-box">
 							<div id="sb-search" class="sb-search">
-								<form>
-									<input class="sb-search-input" placeholder="搜索你想要的电影" type="search" name="search" id="search">
-									<input class="sb-search-submit" type="submit" value="">
-									<span class="sb-icon-search"> </span>
+								<form role="search" method="get" action="{% url 'haystack_search' %}">
+									<input class="sb-search-input" placeholder="搜索你想要的电影" type="search" name="q" id="search">
+{#									<input class="sb-search-submit" type="submit" value="">#}
+                                    <button type="submit"><span class="sb-icon-search"> </span></button>
 								</form>
 							</div>
 						</div>

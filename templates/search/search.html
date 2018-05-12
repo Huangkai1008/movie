@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load highlight %}
+{% block title %}
+    微电影 搜索结果
+{% endblock title %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/search.css' %}" type="text/css">
+{% endblock css %}
+{% block content %}
+    {% if query %}
+        <div class="container">
+            <ol class="breadcrumb" style="padding:10px 15px;">
+                <li><a href="{% url 'index' %}">首页</a></li>
+                <li><a target="_blank" href="#">资源搜索</a></li>
+                <li class="active">{{ q.name }}</li>
+            </ol>
+            {% for result in page.object_list %}
+                <div class="result-item">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <a target="_blank" href="{% url 'movie_detail' result.object.id %}"
+                               style="position:relative;display:block;">
+                                <img class="img-thumbnail lazy"
+                                     data-original="{{ MEDIA_URL }}{{ result.object.image }}" alt="{{ result.object.name }}"
+                                     title="{{ result.object.name }}" src="{{ MEDIA_URL }}{{ result.object.image }}">
+                            </a>
+                        </div>
+                        <div class="col-xs-7">
+                            <p class="movie-name">名称：<strong><a target="_blank"
+                                                                href="{% url 'movie_detail' result.object.id %}">《{{ result.object.name }}》</a></strong><span
+                                    class="subtype">电影</span></p>
+                            <div class="intro">
+                                <p>上映时间：{{ result.object.year }} / 评分：<strong>{{ result.object.score_douban }}</strong>
+                                <p class="movie-introduce">简介：{{ result.object.intro }}</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="no_result">没有搜索到你想要的结果!</div>
+            {% endfor %}
+        </div>
+    {% else %}
+         请输入搜索关键词,例如头号玩家
+    {% endif %}
+{% endblock content %}

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'haystack',  # 添加haystack框架
     'pure_pagination',  # 添加分页
     'xadmin',   # 添加xadmin
     'users',    # 添加users应用
@@ -123,6 +124,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+#   自动更新索引
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
