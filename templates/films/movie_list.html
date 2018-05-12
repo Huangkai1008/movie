@@ -74,7 +74,7 @@
 							<div class="otherinfo">
 								类型：
                                 {% for tag in movie.tags.all %}
-								<a class="movietype" target="_blank" href="/movie/?tag=%E5%8A%A8%E4%BD%9C">{{ tag.name }}</a>
+								<a class="movietype" target="_blank" href="http://127.0.0.1:8000/movie_list/?tag={{ tag.id }}">{{ tag.name }}</a>
                                 {% endfor %}
 							</div>
 						</div>

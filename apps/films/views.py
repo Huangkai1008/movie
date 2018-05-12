@@ -23,7 +23,7 @@ class MovieListView(View):
     """
     电影列表视图
     """
-    def get(self, request):
+    def get(self, request, *tag_type):
         # 取出所有电影
         all_movies = Movie.objects.all()
         # 电影总数
@@ -63,7 +63,8 @@ class MovieListView(View):
                                                          'year': year,
                                                          'region_id': region_id,
                                                          'score': score,
-                                                         'tag_id': tag_id})
+                                                         'tag_id': tag_id,
+                                                         'tag_type': tag_type})
 
 
 class MovieDetailView(View):

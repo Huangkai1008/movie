@@ -90,7 +90,7 @@
                                 <div class="otherinfo">类型：
                                         {% for tag in hot_movie.tags.all %}
                                             <a target="_blank"
-                                                            href="http://www.id97.com/movie/?tag=%E5%8A%A8%E4%BD%9C"}
+                                                            href="http://127.0.0.1:8000/movie_list/?tag={{ tag.id }}"}
                                                             class="movietype">{{ tag.name }}</a>
                                             {% endfor %}
                                 </div>
@@ -131,7 +131,7 @@
                                 <div class="otherinfo">类型：
                                     {% for tag in new_movie.tags.all %}
                                     <a target="_blank"
-                                                             href="http://www.id97.com/movie/?tag=%E5%96%9C%E5%89%A7"
+                                                             href="http://127.0.0.1:8000/movie_list/?tag={{ tag.id }}"
                                                              class="movietype">{{ tag.name }}</a>
                                         {% endfor %}
                             </div>
