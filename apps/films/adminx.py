@@ -1,4 +1,4 @@
-from .models import Tag, Movie, Region, Language
+from .models import Tag, Movie, Region, Language, Comment
 
 import xadmin
 
@@ -27,7 +27,12 @@ class LanguageAdmin(object):
     pass
 
 
+class CommentAdmin(object):
+    pass
+
+
 xadmin.site.register(Movie, MovieAdmin)
 xadmin.site.register(Tag, TagAdmin)
 xadmin.site.register(Region, RegionAdmin)
 xadmin.site.register(Language, LanguageAdmin)
+xadmin.site.register(Comment, CommentAdmin)

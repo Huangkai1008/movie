@@ -249,10 +249,13 @@
 		    margin: 20px 0 30px;
 		}
 		.alert-x {
-		    border: 1px solid #d9edf7;
 		    border-radius: 3px;
 		    padding: 10px;
 		}
+		.alert-self{
+            background-color: #F19E1F;
+            border-color: #ffffff;
+        }
 		.online-play-btn {
 		    background: #e8e8e8 none repeat scroll 0 0;
 		    border: 1px solid #ccc;

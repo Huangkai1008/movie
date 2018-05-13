@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from movie.settings import MEDIA_ROOT
 from users.views import LoginView, RegisterView, ResetPwdView, ActiveUserView
-from films.views import IndexView, MovieListView, MovieDetailView
+from films.views import IndexView, MovieListView, MovieDetailView, CommentView
 import xadmin
 
 urlpatterns = [
@@ -50,6 +50,8 @@ urlpatterns = [
     re_path('active/(?P<active_code>.*)/', ActiveUserView.as_view(), name='user_active'),
     # haystack url
     path('search/', include('haystack.urls')),
+    # 评论url
+    path('comment', CommentView.as_view(), name='comment'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   # 配置xadmin的图像文件加载路径
 
 
