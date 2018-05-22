@@ -3,6 +3,11 @@
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
     <link href="{% static 'css/my-login.css' %}" rel="stylesheet" type="text/css">
+     <style>
+    .nav{
+        display: inline;
+    }
+    </style>
 {% endblock %}
 {% block content %}
     <body class="my-login-page">
@@ -28,7 +33,7 @@
 									<input id="password" type="password" class="form-control" name="password" required data-eye
                                     placeholder="请输入你的密码">
                                 </div>
-                                <div class="error btns login-form-tips">
+                                <div style="color: red">
                                     {% for key, error in login_form.errors.items %}
                                         {{ error }}
                                     {% endfor %}
@@ -51,9 +56,6 @@
                             {% csrf_token %}
 							</form>
 						</div>
-					</div>
-					<div class="footer">
-						Copyright &copy; 2017 &mdash; Your Company
 					</div>
 				</div>
 			</div>

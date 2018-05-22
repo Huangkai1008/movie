@@ -34,5 +34,22 @@ class UserInfoForm(forms.ModelForm):
     """
     class Meta:
         model = UserProfile
-        fields = ['nick_name', 'gender', 'birthday', 'address', 'mobile']
+        fields = ['nick_name', 'gender', 'address', 'mobile', 'sign']
+
+
+class UploadImageForm(forms.ModelForm):
+    """
+    用户上传头像
+    """
+    class Meta:
+        model = UserProfile
+        fields = ['image']
+
+
+class ForgetPwdForm(forms.Form):
+    """
+    忘记密码
+    """
+    email = forms.EmailField(required=True)
+    captcha = CaptchaField(error_messages={'invalid': '验证码错误'})
 

@@ -28,6 +28,7 @@ class UserProfile(AbstractUser):
         max_length=100,
         verbose_name=u'头像'
     )
+    sign = models.CharField(max_length=100, verbose_name="个签", null=True, blank=True)
 
     class Meta:
         verbose_name = "用户信息"

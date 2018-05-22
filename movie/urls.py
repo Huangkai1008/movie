@@ -19,7 +19,7 @@ from django.views.static import serve
 from django.conf.urls.static import static
 from django.conf import settings
 from movie.settings import MEDIA_ROOT
-from users.views import LoginView, RegisterView, ResetPwdView, ActiveUserView
+from users.views import LoginView, RegisterView, ResetPwdView, ActiveUserView, UserInfoView, UploadImageView, ForgetPwdView, ResetView, LogOutView
 from films.views import IndexView, MovieListView, MovieDetailView, CommentView
 import xadmin
 
@@ -48,10 +48,22 @@ urlpatterns = [
     # path('films/', include('films.urls', namespace='films')),
     # 激活账户验证码url
     re_path('active/(?P<active_code>.*)/', ActiveUserView.as_view(), name='user_active'),
+    re_path('reset/(?P<active_code>.*)/', ResetView.as_view(), name='reset_pwd'),
     # haystack url
     path('search/', include('haystack.urls')),
     # 评论url
     path('comment', CommentView.as_view(), name='comment'),
+    # # 排行榜
+    # path('rank/', RankView.as_view(), name='rank'),
+    # 用户中心url
+    path('user_info', UserInfoView.as_view(), name='user_info'),
+    # 修改头像url
+    path('image/upload/', UploadImageView.as_view(), name='upload_image'),
+    # 找回密码url
+    path('forget/', ForgetPwdView.as_view(), name='forget_pwd'),
+    path('reset_pwd/', ResetPwdView.as_view(), name='reset_pwd'),
+    # 退出登录url
+    path('logout/', LogOutView.as_view(), name='logout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   # 配置xadmin的图像文件加载路径
 
 

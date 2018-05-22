@@ -1,17 +1,16 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib import messages
 from django.shortcuts import render
 from django.urls import reverse
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.views.generic.base import View
 from django.contrib.auth.backends import ModelBackend
 from .models import UserProfile, EmailVerifyRecord
 import json
 from django.db.models import Q  # 并集
-from .forms import LoginForm, RegisterForm, ResetPwdForm, UserInfoForm
+from .forms import LoginForm, RegisterForm, ResetPwdForm, UserInfoForm, UploadImageForm, ForgetPwdForm
 from apps.utils.email_send import send_register_email
 
 
@@ -127,7 +126,8 @@ class RegisterView(View):
             user_profile.password = make_password(pass_word)
             user_profile.save()
             send_register_email(user_name, 'register')
-            return render(request, 'users/login.html')
+            messages.success(request, "已经发送了激活邮件，请查收")
+            return render(request, 'users/register.html')
         else:
             return render(request, 'users/register.html', {'register_form': register_form})
 
@@ -162,23 +162,85 @@ class UserInfoView(LoginRequiredMixin, View):
     redirect_field_name = 'next'
 
     def get(self, request):
-        return render(request, 'users/user.html', {})
+        return render(request, 'users/user.html')
 
     def post(self, request):
         # 修改，增加instance属性
         user_info_form = UserInfoForm(request.POST, instance=request.user)
         if user_info_form.is_valid():
-            user_info_form.save()
-            return HttpResponse(
-                '{"status":"success"}',
-                content_type='application/json'
-            )
+            user = UserProfile.objects.get(pk=request.user.id)
+            user.nick_name = user_info_form.cleaned_data['nick_name']
+            user.gender = user_info_form.cleaned_data['gender']
+            user.sign = user_info_form.cleaned_data['sign']
+            user.address = user_info_form.cleaned_data['address']
+            user.mobile = user_info_form.cleaned_data['mobile']
+            user.save()
+            return HttpResponseRedirect(reverse('user_info'))
         else:
             # 通过json的dumps方法把字典转换成字符串
             return HttpResponse(
                 json.dumps(user_info_form.errors),
                 content_type='application/json'
             )
+
+
+class UploadImageView(LoginRequiredMixin, View):
+    """
+    用户头像修改
+    """
+    def post(self, request):
+        image_form = UploadImageForm(request.POST, request.FILES)
+        if image_form.is_valid():
+            image = image_form.cleaned_data['image']
+            request.user.image = image
+            request.user.save()
+            # return HttpResponse('{"status": "success"}', content_type='application/json')
+            return HttpResponseRedirect(reverse('user_info'))
+        else:
+            return HttpResponse('{"status": "fail"}', content_type='application/json')
+
+
+class ForgetPwdView(View):
+    """
+    找回密码视图
+    """
+    def get(self, request):
+        forget_form = ForgetPwdForm()
+        return render(request, 'users/forgetpwd.html', {'forget_form': forget_form})
+
+    def post(self, request):
+        forget_form = ForgetPwdForm(request.POST)
+        if forget_form.is_valid():
+            email = request.POST.get('email', None)
+            send_register_email(email, 'forget')
+            return render(request, 'index.html')
+        else:
+            return render(request, 'users/forgetpwd.html', {'forget_form': forget_form})
+
+
+class ResetView(View):
+    def get(self, request, active_code):
+        all_records = EmailVerifyRecord.objects.filter(code=active_code)
+        if all_records:
+            for record in all_records:
+                email = record.email
+                return render(request, "users/reset.html", {"email": email})
+        else:
+            return render(request, "users/active_fail.html")
+        return render(request, "users/login.html")
+
+
+class LogOutView(View):
+    """
+    退出登录
+    """
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect(reverse('index'))
+
+
+
+
 
 
 

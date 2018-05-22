@@ -1,0 +1,16 @@
+<div class="col-md-3">
+    <div class="list-group">
+        <a id="md-1" href="{% url 'user_info' %}" class="list-group-item">
+            <span class="fas fa-user"></span> 会员中心
+        </a>
+        <a id="md-2" href="" class="list-group-item">
+            <span class="fas fa-key"></span> 修改密码
+        </a>
+         <a id="md-3" href="{{ url_for('home.order_manage') }}" class="list-group-item">
+            <span class="fas fa-shopping-bag"></span> 订单管理
+        </a>
+        <a id="md-4" href="{{ url_for('home.logout') }}" class="list-group-item">
+            <span class="fas fa-sign-out-alt"></span> 退出登录
+        </a>
+    </div>
+</div>

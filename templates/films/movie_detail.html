@@ -226,7 +226,7 @@
                                 {% endif %}
                                 {% if request.user.is_authenticated %}
                                     {# 如果用户登录那么弹出评论表单 #}
-                                    <div class="alert-x alert-warning reply-box">
+                                    <div class="alert-x alert-warning reply-box alert-dismissible" role="alert">
                                         {% if messages %}
                                             {% for message in messages %}
                                                 <p{% if message.tags %} class="{{ message.tags }}" {% endif %}

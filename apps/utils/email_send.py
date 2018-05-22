@@ -1,7 +1,7 @@
 from random import Random
 from django.core.mail import send_mail
 
-from users.models import EmailVerifyRecord
+from users.models import EmailVerifyRecord, UserProfile
 from movie.settings import EMAIL_FROM
 
 
@@ -42,3 +42,13 @@ def send_register_email(email, send_type='register'):
         # 如果发送成功
         if send_status:
             pass
+
+    if send_type == 'forget':
+        email_title = '微电影账号找回链接'
+        email_body = "请点击下面的链接找回你的密码: http://127.0.0.1:8000/reset/{0}".format(code)
+
+        send_status = send_mail(email_title, email_body, EMAIL_FROM, [email])
+        # 如果发送成功
+        if send_status:
+            pass
+

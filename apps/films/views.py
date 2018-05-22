@@ -19,7 +19,7 @@ class IndexView(View):
     def get(self, request):
         # 取出10个热门的电影
         hot_movies = Movie.objects.filter(is_hot=True)[:10]
-        new_movies = Movie.objects.order_by('-add_time')
+        new_movies = Movie.objects.order_by('-add_time')[:25]
         return render(request, 'index.html', {'hot_movies': hot_movies,
                                               'new_movies': new_movies})
 
@@ -128,4 +128,5 @@ class CommentView(View):
 
         return render(request, 'films/movie_detail.html', {'comment_form':
                                                            comment_form})
+
 

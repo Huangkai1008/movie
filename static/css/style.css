@@ -234,7 +234,13 @@ body a{
 }
 /* Login Button */
 #loginButton { 
-    display:inline-block;  
+    display:inline-block;
+    position:relative;
+    z-index:30;
+    cursor:pointer;
+}
+#loginButton2 {
+    display:inline-block;
     position:relative;
     z-index:30;
     cursor:pointer;
@@ -353,16 +359,8 @@ input:focus {
 a#loginButton img {
 	vertical-align: bottom;
 }
-.banner{
-	background: url(../images/banner.jpg) no-repeat center top;
-	background-size:cover;
-	-webkit-background-size:cover;
-	-moz-background-size:cover;
-	-o-background-size:cover;
-	min-height:410px;
-	text-align:center;
-	padding-top:3em;
-}
+
+
 .container_wrap{
 	margin:0 auto;
 	width:70%;
