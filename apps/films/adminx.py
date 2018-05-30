@@ -9,10 +9,10 @@ class TagAdmin(object):
 
 class MovieAdmin(object):
     list_display = ['name', 'year', 'name_other', 'director', 'actor', 'tags', 'image', 'languages',
-                    'regions', 'intro', 'release_date', 'duration', 'score_douban', 'score_imdb', 'add_time']
-    list_filter = ['year', 'director', 'tags', 'languages', 'regions', 'score_douban', 'score_imdb']
+                    'region_id', 'intro',  'duration', 'score_douban', 'score_imdb', 'add_time']
+    list_filter = ['year', 'director', 'tags', 'languages', 'region_id', 'score_douban', 'score_imdb']
     search_fields = ['name', 'name_other', 'director', 'actor', 'tags__name', 'image', 'languages__name',
-                     'regions__name', 'duration', 'intro']
+                     'region_id__name', 'duration', 'intro']
 
 
 class MovieLikeAdmin(object):

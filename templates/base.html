@@ -4,6 +4,7 @@
 <head>
 <title>
 {% block title %}
+    微电影
 {% endblock title %}
 </title>
 <link href="{% static 'bootstrap3/css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
@@ -83,6 +84,15 @@
     <div class="footer">
 						Copyright &copy; 2018  &mdash; 微电影
 					</div>
+<script>
+    $(document).ready(function () {
+        $(".menu li.base a").click(function () {
+            $(".menu li.base").removeClass("active");
+            $(".menu li.base a").parent().addClass("active");
+            {#$(this).addClass("active");#}
+        })
+    })
+</script>
 {% block js %}
 {% endblock %}
 </body>

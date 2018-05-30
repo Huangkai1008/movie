@@ -18,8 +18,8 @@ class IndexView(View):
     """
     def get(self, request):
         # 取出10个热门的电影
-        hot_movies = Movie.objects.filter(is_hot=True)[:10]
-        new_movies = Movie.objects.order_by('-add_time')[:25]
+        hot_movies = Movie.objects.filter(is_hot=True).order_by('-release_date')[:10]
+        new_movies = Movie.objects.order_by('-release_date')[:15]
         return render(request, 'index.html', {'hot_movies': hot_movies,
                                               'new_movies': new_movies})
 
@@ -34,6 +34,7 @@ class MovieListView(View):
         # 电影总数
         movie_counts = all_movies.count()
         # 所有地区
+        # regions = Region.objects.all()
         regions = Region.objects.all()
         # 所有分类
         tags = Tag.objects.all()
@@ -45,7 +46,7 @@ class MovieListView(View):
                 all_movies = all_movies.filter(year=year)
         region_id = request.GET.get('region', '')
         if region_id:
-            all_movies = all_movies.filter(regions__pk=int(region_id))
+            all_movies = all_movies.filter(region_id_id=int(region_id))
 
         score = request.GET.get('score', '')
         if score:
@@ -59,7 +60,7 @@ class MovieListView(View):
             page = request.GET.get('page', 1)
         except PageNotAnInteger:
             page = 1
-        p = Paginator(all_movies, 25, request=request)
+        p = Paginator(all_movies, 15, request=request)
         movies = p.page(page)
         return render(request, 'films/movie_list.html', {'all_movies': movies,
                                                          'movie_counts': movie_counts,
